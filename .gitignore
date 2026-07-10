@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+venv/
+env/
+.venv/
+*.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset & artefak training (jangan di-commit, terlalu besar)
+dataset_subset/
+kagglehub/
+*.zip
+
+# Model terlatih (opsional: hapus baris ini jika ingin ikut commit model)
+model/*.h5
+model/*.keras
+model/training_history.png
+
+# Namun tetap pertahankan file kelas & folder model itu sendiri
+!model/.gitkeep
+!model/class_names.json
+
+# Upload user (hasil runtime, jangan ikut di-commit)
+static/uploads/*
+!static/uploads/.gitkeep
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

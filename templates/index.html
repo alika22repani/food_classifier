@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Klasifikasi Makanan Indonesia - NusantaraVision{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <span class="eyebrow">Transfer Learning &middot; VGG16</span>
+                <h1 class="hero-title">Kenali Kelezatan<br><span class="text-accent">Nusantara</span> dari Sebuah Foto
+                </h1>
+                <p class="hero-subtitle">
+                    Unggah foto makanan favoritmu &mdash; rendang, sate, gado-gado, atau apapun itu &mdash;
+                    dan biarkan model VGG16 yang telah dilatih ulang menebak jenis hidangannya lengkap
+                    dengan tingkat keyakinannya.
+                </p>
+            </div>
+            <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+                <div class="hero-badge">
+                    <div class="hero-badge-icon">🍜</div>
+                    <div class="hero-badge-text">
+                        <span class="hero-badge-num">224&times;224</span>
+                        <span class="hero-badge-label">input resolution</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container upload-section">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            {% if not model_ready %}
+            <div class="alert alert-warning shadow-sm">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                Model belum tersedia. Jalankan <code>python train.py</code> terlebih dahulu sebelum melakukan prediksi.
+            </div>
+            {% endif %}
+
+            <div class="card upload-card">
+                <div class="card-body">
+                    <form action="{{ url_for('predict_route') }}" method="POST" enctype="multipart/form-data"
+                        id="uploadForm">
+
+                        <label for="fileInput" class="dropzone" id="dropzone">
+                            <input type="file" name="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp" hidden
+                                required>
+                            <div id="dropzoneContent">
+                                <div class="dropzone-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                                <p class="dropzone-title">Seret &amp; lepas gambar di sini</p>
+                                <p class="dropzone-sub">atau klik untuk memilih file &middot; PNG, JPG, JPEG, WEBP
+                                    &middot; maks 5MB</p>
+                            </div>
+                            <div id="previewContent" class="d-none">
+                                <img id="previewImage" src="" alt="Preview gambar">
+                                <p class="mt-2 mb-0 text-muted small" id="previewFileName"></p>
+                            </div>
+                        </label>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-accent btn-lg" id="submitBtn" {% if not model_ready
+                                %}disabled{% endif %}>
+                                <i class="bi bi-search me-2"></i>Klasifikasikan Makanan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {% if result %}
+            <div class="card result-card mt-4">
+                <div class="card-body">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-5 text-center">
+                            <img src="{{ image_url }}" alt="Gambar yang diunggah" class="result-image">
+                        </div>
+                        <div class="col-md-7">
+                            <span class="eyebrow">Hasil Prediksi</span>
+                            <h2 class="result-title">{{ result.predicted_class }}</h2>
+
+                            <div class="confidence-block mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="small text-muted">Confidence Score</span>
+                                    <span class="confidence-value">{{ result.confidence }}%</span>
+                                </div>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill js-bar-fill" data-width="{{ result.confidence }}"></div>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <p class="small text-uppercase text-muted mb-2">Top-{{ result.top_predictions|length }}
+                                Prediksi</p>
+                            {% for pred in result.top_predictions %}
+                            <div class="top-pred-row">
+                                <span class="top-pred-name">{{ loop.index }}. {{ pred.class }}</span>
+                                <div class="top-pred-bar-wrap">
+                                    <div class="top-pred-bar js-bar-fill" data-width="{{ pred.confidence }}"></div>
+                                </div>
+                                <span class="top-pred-value">{{ pred.confidence }}%</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+<section class="container how-it-works">
+    <div class="row text-center mb-4">
+        <div class="col">
+            <span class="eyebrow">Cara Kerja</span>
+            <h2 class="section-title">Tiga Langkah Sederhana</h2>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="step-card">
+                <div class="step-icon"><i class="bi bi-upload"></i></div>
+                <h5>1. Unggah Foto</h5>
+                <p class="text-muted small">Pilih atau seret foto makanan Indonesia yang ingin dikenali.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="step-card">
+                <div class="step-icon"><i class="bi bi-cpu"></i></div>
+                <h5>2. Diproses Model VGG16</h5>
+                <p class="text-muted small">Gambar diproses (resize 224&times;224, preprocess_input) lalu dianalisis
+                    oleh model.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="step-card">
+                <div class="step-icon"><i class="bi bi-clipboard-check"></i></div>
+                <h5>3. Lihat Hasilnya</h5>
+                <p class="text-muted small">Dapatkan nama makanan beserta confidence score dan top-3 prediksi.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+{% endblock %}

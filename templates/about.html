@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Tentang - NusantaraVision{% endblock %}
+
+{% block content %}
+<section class="container about-section">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <span class="eyebrow">Tentang Project</span>
+            <h1 class="section-title mb-4">NusantaraVision</h1>
+            <p class="lead-text">
+                NusantaraVision adalah aplikasi web untuk mengklasifikasikan jenis makanan Indonesia
+                dari sebuah foto, dibangun menggunakan pendekatan <em>Transfer Learning</em> dengan
+                arsitektur <strong>VGG16</strong> yang telah dilatih sebelumnya (pre-trained) pada
+                dataset ImageNet, kemudian di-<em>fine-tune</em> secara ringan pada dataset makanan
+                Indonesia.
+            </p>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-6">
+                    <div class="info-card h-100">
+                        <h5><i class="bi bi-diagram-3 me-2"></i>Arsitektur Model</h5>
+                        <ul class="small text-muted mb-0">
+                            <li>Base model: VGG16 (ImageNet weights, <code>include_top=False</code>)</li>
+                            <li>Global Average Pooling</li>
+                            <li>Dense(256, ReLU) + Dropout(0.5)</li>
+                            <li>Dense(128, ReLU) + Dropout(0.3)</li>
+                            <li>Dense(N kelas, Softmax)</li>
+                            <li>Fine-tuning ringan pada blok konvolusi ke-5</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card h-100">
+                        <h5><i class="bi bi-database me-2"></i>Dataset</h5>
+                        <ul class="small text-muted mb-0">
+                            <li>Sumber: Kaggle &mdash; <code>yourboys/indonesian-food</code></li>
+                            <li>Diunduh otomatis via <code>kagglehub</code></li>
+                            <li>Subset &plusmn; 3.000&ndash;5.000 gambar (dipilih proporsional per kelas)</li>
+                            <li>Split training/validasi: 80% / 20%</li>
+                            <li>Resize ke 224&times;224 piksel + <code>preprocess_input</code> VGG16</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card h-100">
+                        <h5><i class="bi bi-arrow-repeat me-2"></i>Augmentasi Data</h5>
+                        <ul class="small text-muted mb-0">
+                            <li>Rotasi &plusmn;20&deg;</li>
+                            <li>Shift horizontal/vertikal 15%</li>
+                            <li>Shear &amp; zoom ringan</li>
+                            <li>Flip horizontal</li>
+                            <li>Variasi brightness</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card h-100">
+                        <h5><i class="bi bi-gear me-2"></i>Konfigurasi Training</h5>
+                        <ul class="small text-muted mb-0">
+                            <li>Maksimal 10 epoch (2 tahap: head training + fine-tuning)</li>
+                            <li>EarlyStopping (monitor <code>val_accuracy</code>)</li>
+                            <li>ModelCheckpoint (simpan model terbaik)</li>
+                            <li>ReduceLROnPlateau</li>
+                            <li>Optimizer Adam, loss <code>categorical_crossentropy</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-stack mt-5">
+                <span class="eyebrow">Tech Stack</span>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">TensorFlow / Keras</span>
+                    <span class="tech-badge">VGG16</span>
+                    <span class="tech-badge">Bootstrap 5</span>
+                    <span class="tech-badge">Kagglehub</span>
+                    <span class="tech-badge">Railway</span>
+                </div>
+            </div>
+
+            <div class="alert alert-light border mt-5">
+                <i class="bi bi-lightbulb me-2"></i>
+                Project ini dibuat untuk tujuan pembelajaran/edukasi mengenai penerapan
+                <em>Transfer Learning</em> pada kasus klasifikasi citra dan integrasinya
+                ke dalam aplikasi web berbasis Flask.
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

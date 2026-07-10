@@ -1,0 +1,440 @@
+/* ==========================================================
+   NusantaraVision — Custom Theme
+   Palette:
+     --cream       : #FAF6EE  (background utama)
+     --ink         : #2A211B  (teks utama)
+     --chili       : #A93226  (aksen utama — merah cabai)
+     --turmeric    : #D8A93A  (aksen sekunder — kunyit)
+     --palm        : #35553A  (aksen tersier — daun)
+     --card        : #FFFFFF
+   Tipografi:
+     Display : 'Fraunces' (headline, berkarakter)
+     Body    : 'Inter'
+     Mono    : 'JetBrains Mono' (angka/confidence score)
+   ========================================================== */
+
+:root {
+    --cream: #FAF6EE;
+    --cream-dark: #F1E9D8;
+    --ink: #2A211B;
+    --ink-soft: #5C4F45;
+    --chili: #A93226;
+    --chili-dark: #7E2419;
+    --turmeric: #D8A93A;
+    --palm: #35553A;
+    --card: #FFFFFF;
+    --border-soft: #E7DFCF;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --shadow-soft: 0 10px 30px rgba(42, 33, 27, 0.08);
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+h1, h2, h3, .brand-text {
+    font-family: 'Fraunces', Georgia, serif;
+}
+
+code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--cream-dark);
+    color: var(--chili-dark);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+/* ---------------- Navbar ---------------- */
+.app-navbar {
+    background-color: rgba(250, 246, 238, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-soft);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.brand-mark {
+    font-size: 1.4rem;
+    margin-right: 0.4rem;
+}
+
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.brand-text strong {
+    color: var(--chili);
+}
+
+.app-navbar .nav-link {
+    color: var(--ink-soft);
+    font-weight: 500;
+    margin-left: 0.5rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem !important;
+    transition: all 0.2s ease;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+    background-color: var(--chili);
+    color: #fff !important;
+}
+
+/* ---------------- Hero ---------------- */
+.hero {
+    padding: 4.5rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chili);
+    background: rgba(169, 50, 38, 0.08);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.hero-title {
+    font-size: 2.9rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 1rem 0 1.2rem;
+    color: var(--ink);
+}
+
+.text-accent {
+    color: var(--chili);
+    font-style: italic;
+}
+
+.hero-subtitle {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 42rem;
+}
+
+.hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.8rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.hero-badge-icon {
+    font-size: 2.4rem;
+}
+
+.hero-badge-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-badge-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--chili);
+}
+
+.hero-badge-label {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ---------------- Upload Section ---------------- */
+.upload-section {
+    padding-bottom: 3rem;
+}
+
+.upload-card, .result-card, .info-card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+
+.upload-card .card-body {
+    padding: 2rem;
+}
+
+.dropzone {
+    display: block;
+    border: 2px dashed var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: var(--cream);
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+    border-color: var(--chili);
+    background: rgba(169, 50, 38, 0.04);
+}
+
+.dropzone-icon {
+    font-size: 2.5rem;
+    color: var(--chili);
+    margin-bottom: 0.5rem;
+}
+
+.dropzone-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.dropzone-sub {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+#previewContent img {
+    max-height: 260px;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-accent {
+    background-color: var(--chili);
+    border-color: var(--chili);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.btn-accent:hover:not(:disabled) {
+    background-color: var(--chili-dark);
+    border-color: var(--chili-dark);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.btn-accent:disabled {
+    opacity: 0.5;
+}
+
+/* ---------------- Result Card ---------------- */
+.result-card .card-body {
+    padding: 2rem;
+}
+
+.result-image {
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+.result-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--chili);
+    margin: 0.3rem 0 1rem;
+}
+
+.confidence-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--palm);
+}
+
+.confidence-bar {
+    height: 12px;
+    border-radius: 999px;
+    background: var(--cream-dark);
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--turmeric), var(--chili));
+}
+
+.top-pred-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.88rem;
+}
+
+.top-pred-name {
+    flex: 0 0 42%;
+    color: var(--ink-soft);
+}
+
+.top-pred-bar-wrap {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--cream-dark);
+    overflow: hidden;
+}
+
+.top-pred-bar {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--palm);
+}
+
+.top-pred-value {
+    flex: 0 0 3rem;
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
+
+/* ---------------- How it works ---------------- */
+.how-it-works {
+    padding: 3rem 0 4.5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 0.4rem;
+}
+
+.step-card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: 1.8rem 1.4rem;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-4px);
+}
+
+.step-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(169, 50, 38, 0.08);
+    color: var(--chili);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto 1rem;
+}
+
+/* ---------------- About Page ---------------- */
+.about-section {
+    padding: 3.5rem 0 4.5rem;
+}
+
+.lead-text {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+}
+
+.info-card {
+    padding: 1.6rem;
+}
+
+.info-card ul {
+    padding-left: 1.1rem;
+    line-height: 1.6;
+}
+
+.tech-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+}
+
+/* ---------------- Error Page ---------------- */
+.error-section {
+    padding: 6rem 0;
+}
+
+.error-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* ---------------- Footer ---------------- */
+.app-footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 2.2rem 0;
+    margin-top: 2rem;
+    flex-shrink: 0;
+}
+
+.app-footer p {
+    color: var(--cream-dark);
+}
+
+.footer-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.footer-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--turmeric);
+    display: inline-block;
+}
+
+.footer-dots span:nth-child(2) { background: var(--chili); }
+.footer-dots span:nth-child(4) { background: var(--palm); }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 767px) {
+    .hero-title { font-size: 2.1rem; }
+    .upload-card .card-body, .result-card .card-body { padding: 1.4rem; }
+    .top-pred-name { flex-basis: 38%; font-size: 0.8rem; }
+}
