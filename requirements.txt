@@ -3,9 +3,8 @@ Werkzeug==3.0.4
 gunicorn==22.0.0
 tensorflow-cpu==2.16.1
 numpy==1.26.4
+scipy==1.13.1
 Pillow==10.4.0
 matplotlib==3.9.0
 kagglehub==0.3.4
-python-dotenv==1.0.1se
-git commit -m "first commit"
-https://github.com/alika22repani/food_classifier
+python-dotenv==1.0.1
